@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banquet Event Order (BEO) Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { width: 80%; margin: auto; padding: 20px; }
+        .content-container { display: flex; width: 80%; margin: auto; }
+        .left, .right { width: 50%; padding: 20px; text-align: left; }
+        .signature-container { display: flex; justify-content: space-around; margin-top: 20px; }
+        .signature-box { text-align: center; width: 30%; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, textarea { width: 90%; padding: 8px; margin-top: 5px; }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo { max-width: 200px; display: block; margin: auto; }
+        .recipe { border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 10px; }
+        .btn-print {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%
+        }
+
+        .btn-print:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="recipe">
+        <h2>Banquet Event Order (BEO) Form</h2>
+        <div class="logo-container">
+            <input type="file" accept="image/*" id="logoInput">
+            <br>
+            <img id="logoPreview" class="logo" src="" alt="Logo Perusahaan">
+        </div>
+        <label>Nama Perusahaan:</label>
+        <input type="text" placeholder="Masukkan nama perusahaan">
+        <label>Alamat Perusahaan:</label>
+        <textarea placeholder="Masukkan alamat perusahaan"></textarea>
+        </div>
+    </div>
+    
+    <div class="content-container">
+        <div class="left">
+            <div class="recipe">
+            <label>Nama Event:</label>
+            <input type="text" placeholder="Masukkan nama event">
+
+            <label>Type of Event:</label>
+            <input type="text" placeholder="Masukkan tipe event">
+            
+            <h3>Catatan untuk Departemen</h3>
+            <label>F&B Product(kitchen & bar):</label>
+            <textarea placeholder="Catatan untuk F&B Product"></textarea>
+            
+            <label>Banquet Team:</label>
+            <textarea placeholder="Catatan untuk Banquet Team"></textarea>
+            
+            <label>Room Attendance:</label>
+            <textarea placeholder="Catatan untuk Room Attendance"></textarea>
+            
+            <label>Security:</label>
+            <textarea placeholder="Catatan untuk Security"></textarea>
+            </div>
+        </div>
+        
+        <div class="right">
+            <div class="recipe">
+            <label>Nama PIC:</label>
+            <input type="text" placeholder="Nama PIC">
+
+            <label>No Tlp:</label>
+            <input type="number" id="totalPax" oninput="calculateTotal()">
+            
+            <label>Tanggal & Waktu:</label>
+            <input type="datetime-local">
+            
+            <label>Lokasi Acara:</label>
+            <input type="text" placeholder="Masukkan lokasi">
+            
+            <label>Total Pax:</label>
+            <input type="number" id="totalPax" oninput="calculateTotal()">
+            
+            <label>Harga per Pax (IDR):</label>
+            <input type="number" id="hargaPax" oninput="calculateTotal()">
+            
+            <label>Total Harga (IDR):</label>
+            <input type="text" id="totalHarga" readonly>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h3>Tanda Tangan</h3>
+        <div class="signature-container">
+            <div class="signature-box">
+                <label>Penerima Event</label>
+                <input type="text" placeholder="Nama">
+                <br><br>
+                <input type="text" placeholder="Tanda Tangan">
+            </div>
+            <div class="signature-box">
+                <label>Kitchen HOD</label>
+                <input type="text" placeholder="Nama">
+                <br><br>
+                <input type="text" placeholder="Tanda Tangan">
+            </div>
+            <div class="signature-box">
+                <label>Bar HOD</label>
+                <input type="text" placeholder="Nama">
+                <br><br>
+                <input type="text" placeholder="Tanda Tangan">
+            </div>
+            <div class="signature-box">
+                <label>Cashier HOD</label>
+                <input type="text" placeholder="Nama">
+                <br><br>
+                <input type="text" placeholder="Tanda Tangan">
+            </div>
+            <div class="signature-box">
+                <label>Service HOD</label>
+                <input type="text" placeholder="Nama">
+                <br><br>
+                <input type="text" placeholder="Tanda Tangan">
+            </div>
+            <div class="signature-box">
+                <label>Restaurant Manager</label>
+                <input type="text" placeholder="Nama">
+                <br><br>
+                <input type="text" placeholder="Tanda Tangan">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function calculateTotal() {
+            let pax = document.getElementById('totalPax').value;
+            let harga = document.getElementById('hargaPax').value;
+            let total = pax * harga;
+            document.getElementById('totalHarga').value = total ? total.toLocaleString('id-ID') : '';
+        }
+        
+        document.getElementById('logoInput').addEventListener('change', function(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('logoPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
